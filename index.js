@@ -1,19 +1,19 @@
 // Yêu cầu thư viện discord.js
 const { Client, GatewayIntentBits } = require('discord.js');
 
+// === DÒNG QUAN TRỌNG NHẤT ===
+// Lấy token từ đối số dòng lệnh thứ 2 (ví dụ: node index.js <token>)
+const token = process.argv[2]; 
+// =============================
+
 // Khởi tạo một client (bot) mới
-// Chúng ta cần chỉ định "Intents" (ý định) mà bot của bạn cần
 const client = new Client({
   intents: [
-    GatewayIntentBits.Guilds,           // Cần để bot nhận thông tin về server
-    GatewayIntentBits.GuildMessages,    // Cần để bot nhận thông tin tin nhắn
-    GatewayIntentBits.MessageContent    // Cần để bot đọc được nội dung tin nhắn (như !ping)
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent
   ]
 });
-
-// Lấy Token từ "Biến Môi Trường" (Environment Variable)
-// Đây là cách an toàn nhất, host của bạn sẽ cung cấp biến này
-const token = process.env.BOT_TOKEN;
 
 // Khi bot đã sẵn sàng (online)
 client.on('ready', () => {
@@ -27,10 +27,13 @@ client.on('messageCreate', message => {
 
   // Nếu nội dung tin nhắn chính xác là "!ping"
   if (message.content === '!ping') {
-    // Bot sẽ trả lời lại "Pong!"
     message.reply('Pong!');
   }
 });
 
-// Đăng nhập vào Discord bằng Token của bạn
-client.login(token);
+// Đăng nhập vào Discord bằng Token đã lấy
+if (!token) {
+  console.error('Loi: Khong tim thay token! Ban da truyen token vao ADDITIONAL ARGUMENTS chua?');
+} else {
+  client.login(token);
+}
