@@ -1,5 +1,5 @@
-# Bỏ qua thư mục chứa các thư viện đã cài
 /node_modules
+config.json
 
 # Bỏ qua file chứa token (nếu bạn test ở máy)
 .env

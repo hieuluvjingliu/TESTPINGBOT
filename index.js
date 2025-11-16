@@ -1,10 +1,8 @@
 // Yêu cầu thư viện discord.js
 const { Client, GatewayIntentBits } = require('discord.js');
 
-// === DÒNG QUAN TRỌNG NHẤT ===
-// Lấy token từ đối số dòng lệnh thứ 2 (ví dụ: node index.js <token>)
-const token = process.argv[2]; 
-// =============================
+const config = require('./config.json'); // Đọc file config
+const token = config.BOT_TOKEN;          // Lấy token từ file đó
 
 // Khởi tạo một client (bot) mới
 const client = new Client({
@@ -33,7 +31,7 @@ client.on('messageCreate', message => {
 
 // Đăng nhập vào Discord bằng Token đã lấy
 if (!token) {
-  console.error('Loi: Khong tim thay token! Ban da truyen token vao ADDITIONAL ARGUMENTS chua?');
+  console.error('Loi: Khong tim thay token! Ban da upload file config.json chua?');
 } else {
   client.login(token);
 }
